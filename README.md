@@ -1,0 +1,1 @@
+# plugins-no-right-click-images-plugin
