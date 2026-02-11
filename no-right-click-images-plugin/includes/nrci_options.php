@@ -11,35 +11,35 @@ function kpg_no_rc_img_control_2()  {
 	$options=kpg_nrci_get_options();
 	extract($options);
 	// check for update submit
-	if (array_key_exists('kpg_nrci_update',$_POST)&&wp_verify_nonce($_POST['kpg_nrci_update'],'kpg_nrci_update')) { 
+	if (array_key_exists('kpg_nrci_update',$_POST) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kpg_nrci_update'])),'kpg_nrci_update')) { 
 		// need to update replace
 		if (array_key_exists('kpg_drag',$_POST)) {
-			$drag=stripslashes($_POST['kpg_drag']);
+			$drag=sanitize_text_field(wp_unslash($_POST['kpg_drag']));
 		} else {
 			$drag='N';
 		}
 		if (array_key_exists('kpg_touch',$_POST)) {
-			$touch=stripslashes($_POST['kpg_touch']);
+			$touch=sanitize_text_field(wp_unslash($_POST['kpg_touch']));
 		} else {
 			$touch='N';
 		}
 		if (array_key_exists('kpg_gesture',$_POST)) {
-			$gesture=stripslashes($_POST['kpg_gesture']);
+			$gesture=sanitize_text_field(wp_unslash($_POST['kpg_gesture']));
 		} else {
 			$gesture='N';
 		}
 		if (array_key_exists('kpg_allowforlogged',$_POST)) {
-			$allowforlogged=stripslashes($_POST['kpg_allowforlogged']);
+			$allowforlogged=sanitize_text_field(wp_unslash($_POST['kpg_allowforlogged']));
 		} else {
 			$allowforlogged='N';
 		}
 		if (array_key_exists('kpg_ios',$_POST)) {
-			$ios=stripslashes($_POST['kpg_ios']);
+			$ios=sanitize_text_field(wp_unslash($_POST['kpg_ios']));
 		} else {
 			$ios='N';
 		}
 		if (array_key_exists('kpg_admin',$_POST)) {
-			$admin=stripslashes($_POST['kpg_admin']);
+			$admin=sanitize_text_field(wp_unslash($_POST['kpg_admin']));
 		} else {
 			$admin='N';
 		}

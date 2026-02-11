@@ -2,9 +2,11 @@
 /*
 Plugin Name: No Right Click Images
 Description: Uses JavaScript to prevent right clicking on images to help keep leaches from copying images
-Version: 4.0
-Tested up to: 6.6
+Version: 4.1
+Tested up to: 6.9
 Author: WebFactory Ltd
+Text Domain: no-right-click-images-plugin
+License: GPLv2 or later
 Author URI: https://www.webfactoryltd.com/
 
   This program is free software; you can redistribute it and/or modify
@@ -103,8 +105,8 @@ class No_Right_Click_Images
       wp_enqueue_script('jquery-ui-dialog');
 
       $js_localize = array(
-        'wp301_install_url' => add_query_arg(array('action' => 'no_right_click_images_install_wp301', '_wpnonce' => wp_create_nonce('install_wp301'), 'rnd' => rand()), admin_url('admin.php')),
-        'wpcaptcha_install_url' => add_query_arg(array('action' => 'no_right_click_images_install_wpcaptcha', '_wpnonce' => wp_create_nonce('install_wpcaptcha'), 'rnd' => rand()), admin_url('admin.php')),
+        'wp301_install_url' => add_query_arg(array('action' => 'no_right_click_images_install_wp301', '_wpnonce' => wp_create_nonce('install_wp301'), 'rnd' => wp_rand()), admin_url('admin.php')),
+        'wpcaptcha_install_url' => add_query_arg(array('action' => 'no_right_click_images_install_wpcaptcha', '_wpnonce' => wp_create_nonce('install_wpcaptcha'), 'rnd' => wp_rand()), admin_url('admin.php')),
         'site_url' => site_url()
       );
 
@@ -170,9 +172,9 @@ class No_Right_Click_Images
     }
 
     if (isset($_POST['submit']) && isset($_POST['norightclickimages_update_admin_options_nonce'])) {
-      if (!wp_verify_nonce($_POST['norightclickimages_update_admin_options_nonce'], 'norightclickimages_update_admin_options')) {
+      if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['norightclickimages_update_admin_options_nonce'])), 'norightclickimages_update_admin_options')) {
         echo '<div id="message" class="updated fade">
-                    <p><strong>' . esc_html__('Sorry, your nonce did not verify.', 'no-right-click-images') . '</strong></p>
+                    <p><strong>' . esc_html__('Sorry, your nonce did not verify.', 'no-right-click-images-plugin') . '</strong></p>
                 </div>';
       } else {
         $options['options']['gesture'] = isset($_POST['gesture']) && intval($_POST['gesture']) === 1 ? 1 : 0;
@@ -185,7 +187,7 @@ class No_Right_Click_Images
 
 
         echo '<div id="message" class="updated fade">
-                    <p><strong>' . esc_html__('Options saved.', 'no-right-click-images') . '</strong></p>
+                    <p><strong>' . esc_html__('Options saved.', 'no-right-click-images-plugin') . '</strong></p>
                 </div>';
       }
     }
@@ -227,8 +229,8 @@ class No_Right_Click_Images
   static function admin_menu()
   {
     add_options_page(
-      esc_html__('No Right Click Images'),
-      esc_html__('No Right Click Images'),
+      esc_html('No Right Click Images'),
+      esc_html('No Right Click Images'),
       'manage_options',
       'no-right-click-images-plugin',
       array(__CLASS__, 'options_page')
@@ -275,7 +277,7 @@ class No_Right_Click_Images
   static function options_page()
   {
     if (!current_user_can('manage_options')) {
-      wp_die(esc_html__('You do not have sufficient permissions to access this page.'));
+      wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'no-right-click-images-plugin'));
     }
 
     $options = self::get_options();
