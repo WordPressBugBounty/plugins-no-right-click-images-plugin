@@ -3,7 +3,7 @@
 Plugin Name: No Right Click Images
 Description: Uses JavaScript to prevent right clicking on images to help keep leaches from copying images
 Version: 4.1
-Tested up to: 6.9
+Tested up to: 7.1
 Author: WebFactory Ltd
 Text Domain: no-right-click-images-plugin
 License: GPLv2 or later

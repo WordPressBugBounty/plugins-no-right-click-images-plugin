@@ -1,7 +1,7 @@
 === No Right Click Images ===
 Tags: images, image, right click, stealing, protect
 Requires at least: 3.0
-Tested up to: 6.9
+Tested up to: 7.1
 Contributors: WebFactory
 Stable tag: 4.1
 License: GPLv2 or later
